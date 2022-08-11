@@ -420,7 +420,7 @@ private extension PanModalPresentationController {
     func layoutTopView(to view: UIView) {
         view.addSubview(topView)
         topView.translatesAutoresizingMaskIntoConstraints = false
-        topView.bottomAnchor.constraint(equalTo: dragIndicatorView.bottomAnchor, constant: 100).isActive = true
+        topView.bottomAnchor.constraint(equalTo: presentedView.topAnchor, constant: 100).isActive = true
         topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         topView.heightAnchor.constraint(equalToConstant: 300).isActive = true
@@ -429,7 +429,7 @@ private extension PanModalPresentationController {
     func layoutIconView(to view: UIView) {
         view.addSubview(iconView)
         iconView.translatesAutoresizingMaskIntoConstraints = false
-        iconView.bottomAnchor.constraint(equalTo: dragIndicatorView.bottomAnchor, constant: 40).isActive = true
+        iconView.bottomAnchor.constraint(equalTo: presentedView.topAnchor, constant: 40).isActive = true
         iconView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         iconView.widthAnchor.constraint(equalToConstant: 100).isActive = true
         iconView.heightAnchor.constraint(equalToConstant: 100).isActive = true
