@@ -138,7 +138,17 @@ open class PanModalPresentationController: UIPresentationController {
         view.layer.cornerRadius = Constants.dragIndicatorSize.height / 2.0
         return view
     }()
-
+    
+    private lazy var topView: UIView = {
+        let topView = presentable?.panModalTopView
+        return topView ?? UIView()
+    }()
+    
+    private lazy var iconView: UIImageView = {
+        let iconView = presentable?.iconView
+        return iconView ?? UIImageView()
+    }()
+    
     /**
      Override presented view to return the pan container wrapper
      */
@@ -179,6 +189,8 @@ open class PanModalPresentationController: UIPresentationController {
 
         layoutBackgroundView(in: containerView)
         layoutPresentedView(in: containerView)
+        layoutTopView(to: containerView)
+        layoutIconView(to: containerView)
         configureScrollViewInsets()
 
         guard let coordinator = presentedViewController.transitionCoordinator else {
@@ -212,6 +224,7 @@ open class PanModalPresentationController: UIPresentationController {
          */
         coordinator.animate(alongsideTransition: { [weak self] _ in
             self?.dragIndicatorView.alpha = 0.0
+            self?.topView.alpha = 0.0
             self?.backgroundView.dimState = .off
             self?.presentingViewController.setNeedsStatusBarAppearanceUpdate()
         })
@@ -403,7 +416,24 @@ private extension PanModalPresentationController {
         backgroundView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor).isActive = true
         backgroundView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
-
+    
+    func layoutTopView(to view: UIView) {
+        view.addSubview(topView)
+        topView.translatesAutoresizingMaskIntoConstraints = false
+        topView.bottomAnchor.constraint(equalTo: dragIndicatorView.bottomAnchor, constant: 100).isActive = true
+        topView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        topView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        topView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+    }
+    
+    func layoutIconView(to view: UIView) {
+        view.addSubview(iconView)
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        iconView.bottomAnchor.constraint(equalTo: dragIndicatorView.bottomAnchor, constant: 40).isActive = true
+        iconView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        iconView.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        iconView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+    }
     /**
      Adds the drag indicator view to the view hierarchy
      & configures its layout constraints.

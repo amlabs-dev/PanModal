@@ -20,7 +20,8 @@ import UIKit
  ```
  */
 public protocol PanModalPresentable: AnyObject {
-
+    var panModalTopView: UIView { get }
+    var iconView: UIImageView { get }
     /**
      The scroll view embedded in the view controller.
      Setting this value allows for seamless transition scrolling between the embedded scroll view

@@ -12,7 +12,12 @@ import UIKit
  Default values for the PanModalPresentable.
  */
 public extension PanModalPresentable where Self: UIViewController {
-
+    var panModalTopView: UIView {
+        return UIView()
+    }
+    var iconView: UIImageView {
+        return UIImageView()
+    }
     var topOffset: CGFloat {
         return topLayoutOffset + 21.0
     }
